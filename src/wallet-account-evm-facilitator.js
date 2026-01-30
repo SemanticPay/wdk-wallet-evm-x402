@@ -14,7 +14,7 @@
 
 'use strict'
 
-import { Contract, verifyTypedData } from 'ethers'
+import { Contract } from 'ethers'
 
 /** @typedef {import('@tetherto/wdk-wallet-evm').default} WalletAccountEvm */
 
@@ -93,7 +93,7 @@ export default class WalletAccountEvmFacilitator {
    */
   constructor (walletAccount) {
     /** @type {WalletAccountEvm} */
-    this.adaptee = walletAccount
+    this._adaptee = walletAccount
   }
 
   /**
@@ -102,7 +102,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {string[]}
    */
   getAddresses () {
-    return [this.adaptee._address]
+    return [this._adaptee._address]
   }
 
   /**
@@ -112,7 +112,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {Promise<string | undefined>}
    */
   async getCode ({ address }) {
-    const code = await this.adaptee._provider.getCode(address)
+    const code = await this._adaptee._provider.getCode(address)
     return code === '0x' ? undefined : code
   }
 
@@ -123,7 +123,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {Promise<unknown>}
    */
   async readContract ({ address, abi, functionName, args = [] }) {
-    const contract = new Contract(address, abi, this.adaptee._provider)
+    const contract = new Contract(address, abi, this._adaptee._provider)
     return contract[functionName](...args)
   }
 
@@ -133,9 +133,8 @@ export default class WalletAccountEvmFacilitator {
    * @param {VerifyTypedDataArgs} args - The verification arguments.
    * @returns {Promise<boolean>}
    */
-  async verifyTypedData ({ address, domain, types, message, signature }) {
-    const recovered = verifyTypedData(domain, types, message, signature)
-    return recovered.toLowerCase() === address.toLowerCase()
+  async verifyTypedData ({ domain, types, message, signature }) {
+    return await this._adaptee.verifyTypedData({ domain, types, message }, signature)
   }
 
   /**
@@ -145,7 +144,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {Promise<string>} The transaction hash.
    */
   async writeContract ({ address, abi, functionName, args }) {
-    const contract = new Contract(address, abi, this.adaptee._account)
+    const contract = new Contract(address, abi, this._adaptee._account)
     const tx = await contract[functionName](...args)
     return tx.hash
   }
@@ -157,7 +156,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {Promise<string>} The transaction hash.
    */
   async sendTransaction ({ to, data }) {
-    const { hash } = await this.adaptee.sendTransaction({ to, value: 0, data })
+    const { hash } = await this._adaptee.sendTransaction({ to, value: 0, data })
     return hash
   }
 
@@ -168,7 +167,7 @@ export default class WalletAccountEvmFacilitator {
    * @returns {Promise<TransactionReceiptResult>}
    */
   async waitForTransactionReceipt ({ hash }) {
-    const receipt = await this.adaptee._provider.waitForTransaction(hash)
+    const receipt = await this._adaptee._provider.waitForTransaction(hash)
     return { status: receipt.status === 1 ? 'success' : 'reverted' }
   }
 }
