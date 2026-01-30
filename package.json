@@ -1,5 +1,5 @@
 {
-  "name": "@tetherto/wdk-x402-evm",
+  "name": "@semanticpay/wdk-x402-evm",
   "version": "1.0.0-beta.1",
   "description": "Adapter module that converts wdk-wallet-evm into x402-compatible signers for EVM blockchains.",
   "keywords": [
@@ -10,11 +10,11 @@
     "ethereum",
     "facilitator"
   ],
-  "author": "Tether",
+  "author": "SemanticPay",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tetherto/wdk-x402-evm.git"
+    "url": "git://github.com/SemanticPay/wdk-x402-evm.git"
   },
   "main": "index.js",
   "type": "module",
@@ -27,7 +27,7 @@
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
   },
   "dependencies": {
-    "@tetherto/wdk-wallet-evm": "1.0.0-beta.5",
+    "@tetherto/wdk-wallet-evm": "github:HumanRupert/wdk-wallet-evm#feat/add-typedData",
     "ethers": "6.14.3"
   },
   "devDependencies": {
