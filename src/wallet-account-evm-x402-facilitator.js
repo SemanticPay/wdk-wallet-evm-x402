@@ -7,7 +7,7 @@ import { Contract } from 'ethers'
 
 /**
  * @typedef {Object} ReadContractArgs
- * @property {string} address - The contract address.
+ * @property {`0x${string}`} address - The contract address.
  * @property {readonly unknown[]} abi - The contract ABI.
  * @property {string} functionName - The function to call.
  * @property {readonly unknown[]} [args] - The function arguments.
@@ -15,17 +15,17 @@ import { Contract } from 'ethers'
 
 /**
  * @typedef {Object} VerifyTypedDataArgs
- * @property {string} address - The address that allegedly signed the data.
+ * @property {`0x${string}`} address - The address that allegedly signed the data.
  * @property {Record<string, unknown>} domain - The EIP-712 domain.
  * @property {Record<string, unknown>} types - The EIP-712 types.
  * @property {string} primaryType - The primary type being signed.
  * @property {Record<string, unknown>} message - The structured message that was signed.
- * @property {string} signature - The hex-encoded signature.
+ * @property {`0x${string}`} signature - The hex-encoded signature.
  */
 
 /**
  * @typedef {Object} WriteContractArgs
- * @property {string} address - The contract address.
+ * @property {`0x${string}`} address - The contract address.
  * @property {readonly unknown[]} abi - The contract ABI.
  * @property {string} functionName - The function to call.
  * @property {readonly unknown[]} args - The function arguments.
@@ -33,18 +33,18 @@ import { Contract } from 'ethers'
 
 /**
  * @typedef {Object} SendTransactionArgs
- * @property {string} to - The recipient address.
- * @property {string} data - The transaction data in hex format.
+ * @property {`0x${string}`} to - The recipient address.
+ * @property {`0x${string}`} data - The transaction data in hex format.
  */
 
 /**
  * @typedef {Object} WaitForTransactionReceiptArgs
- * @property {string} hash - The transaction hash.
+ * @property {`0x${string}`} hash - The transaction hash.
  */
 
 /**
  * @typedef {Object} GetCodeArgs
- * @property {string} address - The address to get the bytecode for.
+ * @property {`0x${string}`} address - The address to get the bytecode for.
  */
 
 /**
@@ -75,7 +75,7 @@ export default class WalletAccountEvmX402Facilitator {
   /**
    * Get all addresses this facilitator can use for signing.
    *
-   * @returns {string[]}
+   * @returns {readonly `0x${string}`[]}
    */
   getAddresses () {
     return [this._adaptee.address]
@@ -85,7 +85,7 @@ export default class WalletAccountEvmX402Facilitator {
    * Get the bytecode at a given address.
    *
    * @param {GetCodeArgs} args - The address arguments.
-   * @returns {Promise<string | undefined>}
+   * @returns {Promise<`0x${string}` | undefined>}
    */
   async getCode ({ address }) {
     const code = await this._adaptee._provider.getCode(address)
@@ -117,7 +117,7 @@ export default class WalletAccountEvmX402Facilitator {
    * Write to a contract (send a state-changing transaction).
    *
    * @param {WriteContractArgs} args - The contract write arguments.
-   * @returns {Promise<string>} The transaction hash.
+   * @returns {Promise<`0x${string}`>} The transaction hash.
    */
   async writeContract ({ address, abi, functionName, args }) {
     const contract = new Contract(address, abi, this._adaptee._account)
@@ -129,7 +129,7 @@ export default class WalletAccountEvmX402Facilitator {
    * Send a raw transaction.
    *
    * @param {SendTransactionArgs} args - The transaction arguments.
-   * @returns {Promise<string>} The transaction hash.
+   * @returns {Promise<`0x${string}`>} The transaction hash.
    */
   async sendTransaction ({ to, data }) {
     const { hash } = await this._adaptee.sendTransaction({ to, value: 0, data })
