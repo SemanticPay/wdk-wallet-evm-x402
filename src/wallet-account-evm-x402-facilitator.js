@@ -3,6 +3,7 @@
 import { Contract } from 'ethers'
 
 /** @typedef {import('@tetherto/wdk-wallet-evm').default} WalletAccountEvm */
+/** @typedef {import('@x402/evm').FacilitatorEvmSigner} FacilitatorEvmSigner */
 
 /**
  * @typedef {Object} ReadContractArgs
@@ -52,17 +53,6 @@ import { Contract } from 'ethers'
  */
 
 /**
- * @typedef {Object} FacilitatorEvmSigner
- * @property {() => string[]} getAddresses - Get all addresses this facilitator can use for signing.
- * @property {(args: ReadContractArgs) => Promise<unknown>} readContract - Read contract state.
- * @property {(args: VerifyTypedDataArgs) => Promise<boolean>} verifyTypedData - Verify an EIP-712 typed data signature.
- * @property {(args: WriteContractArgs) => Promise<string>} writeContract - Write to a contract.
- * @property {(args: SendTransactionArgs) => Promise<string>} sendTransaction - Send a raw transaction.
- * @property {(args: WaitForTransactionReceiptArgs) => Promise<TransactionReceiptResult>} waitForTransactionReceipt - Wait for a transaction receipt.
- * @property {(args: GetCodeArgs) => Promise<string | undefined>} getCode - Get bytecode at an address.
- */
-
-/**
  * Object adapter that wraps a WalletAccountEvm instance to conform to the
  * FacilitatorEvmSigner interface required by x402 facilitators.
  *
@@ -71,7 +61,7 @@ import { Contract } from 'ethers'
  *
  * @implements {FacilitatorEvmSigner}
  */
-export default class WalletAccountEvmFacilitator {
+export default class walletaccountevmx402facilitator {
   /**
    * Creates a new facilitator EVM signer adapter.
    *
