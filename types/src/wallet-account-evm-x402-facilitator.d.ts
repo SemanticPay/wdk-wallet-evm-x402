@@ -2,39 +2,39 @@
 /** @typedef {import('@x402/evm').FacilitatorEvmSigner} FacilitatorEvmSigner */
 /**
  * @typedef {Object} ReadContractArgs
- * @property {string} address - The contract address.
+ * @property {`0x${string}`} address - The contract address.
  * @property {readonly unknown[]} abi - The contract ABI.
  * @property {string} functionName - The function to call.
  * @property {readonly unknown[]} [args] - The function arguments.
  */
 /**
  * @typedef {Object} VerifyTypedDataArgs
- * @property {string} address - The address that allegedly signed the data.
+ * @property {`0x${string}`} address - The address that allegedly signed the data.
  * @property {Record<string, unknown>} domain - The EIP-712 domain.
  * @property {Record<string, unknown>} types - The EIP-712 types.
  * @property {string} primaryType - The primary type being signed.
  * @property {Record<string, unknown>} message - The structured message that was signed.
- * @property {string} signature - The hex-encoded signature.
+ * @property {`0x${string}`} signature - The hex-encoded signature.
  */
 /**
  * @typedef {Object} WriteContractArgs
- * @property {string} address - The contract address.
+ * @property {`0x${string}`} address - The contract address.
  * @property {readonly unknown[]} abi - The contract ABI.
  * @property {string} functionName - The function to call.
  * @property {readonly unknown[]} args - The function arguments.
  */
 /**
  * @typedef {Object} SendTransactionArgs
- * @property {string} to - The recipient address.
- * @property {string} data - The transaction data in hex format.
+ * @property {`0x${string}`} to - The recipient address.
+ * @property {`0x${string}`} data - The transaction data in hex format.
  */
 /**
  * @typedef {Object} WaitForTransactionReceiptArgs
- * @property {string} hash - The transaction hash.
+ * @property {`0x${string}`} hash - The transaction hash.
  */
 /**
  * @typedef {Object} GetCodeArgs
- * @property {string} address - The address to get the bytecode for.
+ * @property {`0x${string}`} address - The address to get the bytecode for.
  */
 /**
  * @typedef {Object} TransactionReceiptResult
@@ -61,16 +61,16 @@ export default class WalletAccountEvmX402Facilitator implements FacilitatorEvmSi
     /**
      * Get all addresses this facilitator can use for signing.
      *
-     * @returns {string[]}
+     * @returns {readonly `0x${string}`[]}
      */
-    getAddresses(): string[];
+    getAddresses(): readonly `0x${string}`[];
     /**
      * Get the bytecode at a given address.
      *
      * @param {GetCodeArgs} args - The address arguments.
-     * @returns {Promise<string | undefined>}
+     * @returns {Promise<`0x${string}` | undefined>}
      */
-    getCode({ address }: GetCodeArgs): Promise<string | undefined>;
+    getCode({ address }: GetCodeArgs): Promise<`0x${string}` | undefined>;
     /**
      * Read contract state.
      *
@@ -89,16 +89,16 @@ export default class WalletAccountEvmX402Facilitator implements FacilitatorEvmSi
      * Write to a contract (send a state-changing transaction).
      *
      * @param {WriteContractArgs} args - The contract write arguments.
-     * @returns {Promise<string>} The transaction hash.
+     * @returns {Promise<`0x${string}`>} The transaction hash.
      */
-    writeContract({ address, abi, functionName, args }: WriteContractArgs): Promise<string>;
+    writeContract({ address, abi, functionName, args }: WriteContractArgs): Promise<`0x${string}`>;
     /**
      * Send a raw transaction.
      *
      * @param {SendTransactionArgs} args - The transaction arguments.
-     * @returns {Promise<string>} The transaction hash.
+     * @returns {Promise<`0x${string}`>} The transaction hash.
      */
-    sendTransaction({ to, data }: SendTransactionArgs): Promise<string>;
+    sendTransaction({ to, data }: SendTransactionArgs): Promise<`0x${string}`>;
     /**
      * Wait for a transaction to be mined and return its receipt.
      *
@@ -113,7 +113,7 @@ export type ReadContractArgs = {
     /**
      * - The contract address.
      */
-    address: string;
+    address: `0x${string}`;
     /**
      * - The contract ABI.
      */
@@ -131,7 +131,7 @@ export type VerifyTypedDataArgs = {
     /**
      * - The address that allegedly signed the data.
      */
-    address: string;
+    address: `0x${string}`;
     /**
      * - The EIP-712 domain.
      */
@@ -151,13 +151,13 @@ export type VerifyTypedDataArgs = {
     /**
      * - The hex-encoded signature.
      */
-    signature: string;
+    signature: `0x${string}`;
 };
 export type WriteContractArgs = {
     /**
      * - The contract address.
      */
-    address: string;
+    address: `0x${string}`;
     /**
      * - The contract ABI.
      */
@@ -175,23 +175,23 @@ export type SendTransactionArgs = {
     /**
      * - The recipient address.
      */
-    to: string;
+    to: `0x${string}`;
     /**
      * - The transaction data in hex format.
      */
-    data: string;
+    data: `0x${string}`;
 };
 export type WaitForTransactionReceiptArgs = {
     /**
      * - The transaction hash.
      */
-    hash: string;
+    hash: `0x${string}`;
 };
 export type GetCodeArgs = {
     /**
      * - The address to get the bytecode for.
      */
-    address: string;
+    address: `0x${string}`;
 };
 export type TransactionReceiptResult = {
     /**
