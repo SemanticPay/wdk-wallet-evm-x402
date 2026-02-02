@@ -8,7 +8,7 @@ This module can be managed by the `@tetherto/wdk` package, which provides a unif
 
 ## About WDK
 
-This module is part of the **WDK (Wallet Development Kit)** project, which empowers developers to build secure, non-custodial wallets with unified blockchain access, stateless architecture, and complete user control.
+**WDK (Wallet Development Kit)** empowers developers to build secure, non-custodial wallets with unified blockchain access, stateless architecture, and complete user control.
 
 For detailed documentation about the complete WDK ecosystem, visit [docs.wallet.tether.io](https://docs.wallet.tether.io).
 
